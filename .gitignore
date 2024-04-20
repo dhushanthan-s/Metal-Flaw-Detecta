@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.keras
 
 # Jupyter Notebook
 .ipynb_checkpoints
