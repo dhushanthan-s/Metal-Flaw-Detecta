@@ -2,12 +2,12 @@ from sklearn.datasets import load_files
 from sklearn.metrics import precision_score
 from keras import utils
 from keras.preprocessing.image import array_to_img, img_to_array, load_img
-import pickle
+from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 import numpy as np
 
 valid_dir = 'NEU/valid'
-model_pkl_file = "defect_detection_model.keras"
+model = load_model('defect_detection.keras')
 
 # Loading dataset
 def load_dataset(path):
@@ -34,14 +34,9 @@ print('Test set shape : ',x_test.shape)
 
 x_test = x_test.astype('float32')/255
 
-# Loading model
-with open(model_pkl_file, 'rb') as file:
-    model = pickle.load(file)
-
-# Let's visualize test prediction.
-
 y_pred = model.predict(x_test)
 
+# Let's visualize test prediction.
 true_labels = np.argmax(y_test, axis=1)
 predicted_labels = np.argmax(y_pred, axis=1)
 precision = precision_score(true_labels, predicted_labels, average='weighted')
