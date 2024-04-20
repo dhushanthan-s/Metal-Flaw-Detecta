@@ -12,3 +12,18 @@ ipython_config.py
 
 # VS Code
 .vscode/
+.idea/
+
+# Datasets
+NEU/
+Datasets/
+
+# Output
+output/
+
+# venv
+env/
+jupyter/
+inference/
+*.pkl
+defect_detection_model.pkl
