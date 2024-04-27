@@ -27,4 +27,9 @@ env/
 jupyter/
 inference/
 *.pkl
-defect_detection_model.pkl
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
