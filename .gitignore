@@ -23,9 +23,10 @@ Datasets/
 output/
 
 # venv
-env/
 jupyter/
 inference/
+.venv/
+.conda/
 *.pkl
 
 # Django
@@ -39,3 +40,5 @@ node_modules/
 build/
 yarn-error.log
 yarn.lock
+
+.DS_Store
