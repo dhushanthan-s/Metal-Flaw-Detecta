@@ -12,20 +12,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from local_settings import LocalSettings
+from .local_settings import LocalSettings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Local settings
+settings = LocalSettings()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = LocalSettings.SECRET_KEY
+SECRET_KEY = settings.get_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = LocalSettings.DEBUG
+DEBUG = settings.get_debug()
 
 ALLOWED_HOSTS = []
 
@@ -39,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api.apps.ApiConfig',
-    'aimodel.apps.AimodelConfig',
     'rest_framework',
+    # apps
+    'api.apps.ApiConfig',
+    'model'
 ]
 
 MIDDLEWARE = [

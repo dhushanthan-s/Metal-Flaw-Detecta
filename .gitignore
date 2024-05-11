@@ -14,17 +14,12 @@ ipython_config.py
 # VS Code
 .vscode/
 .idea/
+.zed/
 
 # Datasets
-NEU/
-Datasets/
-
-# Output
-output/
+data/
 
 # venv
-jupyter/
-inference/
 .venv/
 .conda/
 *.pkl
