@@ -7,8 +7,8 @@ import numpy as np
 
 class DefectDetector:
     def __init__(self):
-        path_to_model = 'model/trained_models/defect_detection.keras'
-        self.model = load_model(path_to_model)
+        path_to_model = 'model/trained_models/'
+        self.model = load_model(path_to_model + "defect_detection.keras")
 
     def preprocessing(self, input_data):
         images_as_array = []
