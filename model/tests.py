@@ -8,12 +8,18 @@ import numpy as np
 class DefectDetectorTestCase(TestCase):
     def setUp(self):
         self.detector = DefectDetector()
+        self.acceptable_accuracy = 0.8
 
     def test_compute_prediction(self):
         test_dir = 'data/processed/test'
-        input_data = load_files(test_dir)['filenames']
+        data = load_files(test_dir, load_content=False)
+        input_data = np.array(data['filenames'])
+        expected_prediction = np.array(data['target'])
+
         response = self.detector.compute_prediction(input_data)
         self.assertEqual(response["status"], "OK")
-        self.assertEqual(response["label"], np.argmax(input_data, axis=1))
-        self.assertEqual(response["predicted"], np.argmax(input_data, axis=1))
-        self.assertAlmostEqual(response["precision"], 100.0, places=2)
+
+        predicted_labels = response["predicted"]
+        accuracy = np.mean(predicted_labels == expected_prediction)
+
+        self.assertTrue(accuracy >= self.acceptable_accuracy, msg=f"Accuracy {accuracy:.2f} is below the acceptable threshold of {self.acceptable_accuracy}")

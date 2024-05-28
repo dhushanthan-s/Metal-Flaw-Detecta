@@ -14,25 +14,23 @@ class DefectDetector:
         images_as_array = []
         for file in input_data:
             # Convert to Numpy Array
-            images_as_array.append(img_to_array(load_img(file)))
-        return images_as_array
+            image = load_img(file, target_size=(200,200))
+            image = img_to_array(image)
+            images_as_array.append(image)
+        return np.array(images_as_array)
     
     def predict(self, input_data):
         return self.model.predict(input_data)
     
-    # TODO: Implement postprocessing
-    def postprocessing(self, input_data):
-        true_labels = np.argmax(self, axis=1)
-        predicted_labels = np.argmax(input_data, axis=1)
-        precision = precision_score(true_labels, predicted_labels, average='weighted')
-        return {"precision": precision * 100,
-                "label": true_labels,
-                "predicted": predicted_labels,
+    def postprocessing(self, predicted_data):
+        predicted_labels = np.argmax(predicted_data, axis=1)
+        return {"predicted": predicted_labels,
                 "status": "OK"}
 
     def compute_prediction(self, input_data):
         try:
-            preprocessed_data = self.preprocessing(input_data)
+            preprocessed_data = np.array(self.preprocessing(input_data))
+            preprocessed_data = preprocessed_data.astype('float32')/255
             prediction = self.predict(preprocessed_data)
             postprocessed_data = self.postprocessing(prediction)
             
