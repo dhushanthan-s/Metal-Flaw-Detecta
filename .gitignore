@@ -14,17 +14,26 @@ ipython_config.py
 # VS Code
 .vscode/
 .idea/
+.zed/
 
 # Datasets
-NEU/
-Datasets/
-
-# Output
-output/
+data/
 
 # venv
-env/
-jupyter/
-inference/
+.venv/
+.conda/
 *.pkl
-defect_detection_model.pkl
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# React
+node_modules/
+build/
+yarn-error.log
+yarn.lock
+
+.DS_Store
