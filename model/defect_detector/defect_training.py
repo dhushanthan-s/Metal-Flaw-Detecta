@@ -87,7 +87,7 @@ class DefectTrainer:
 
     # WARNING: This method will delete the existing model and its weights
     def train_model(self):
-        self.model.fit(
+        self.history = self.model.fit(
             self.train_generator,
             steps_per_epoch=self.train_generator.samples // self.batch_size,
             epochs=self.epochs,
@@ -109,7 +109,15 @@ class DefectTrainer:
         self.model.save_weights(self.path_to_best_model_weights)
 
     def update_existing_model(self):
-        self.model = load_model(self.path_to_best_model)
-        self.model.load_weights(self.path_to_best_model_weights)
-        
-        self.train_model()
+        try:
+            self.model = load_model(self.path_to_best_model)
+            self.model.load_weights(self.path_to_best_model_weights)
+            
+            self.train_model()
+
+            return {'status': 'success', 
+                    'accuracy': str(self.history.history['accuracy']), 
+                    'loss': str(self.history.history['loss'])}
+
+        except Exception as e:
+            return {'status': 'error', 'msg': str(e)}
