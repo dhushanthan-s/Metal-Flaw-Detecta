@@ -25,7 +25,7 @@ class DefectDetector:
     def postprocessing(self, predicted_data):
         predicted_labels = np.argmax(predicted_data, axis=1)
         return {"predicted": predicted_labels,
-                "status": "OK"}
+                "status": "success"}
 
     def compute_prediction(self, input_data):
         try:
@@ -35,6 +35,6 @@ class DefectDetector:
             postprocessed_data = self.postprocessing(prediction)
             
         except Exception as e:
-            return {"status": "Error", "message": str(e)}
+            return {"status": "error", "message": str(e)}
         
         return postprocessed_data

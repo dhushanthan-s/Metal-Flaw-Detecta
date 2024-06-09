@@ -17,7 +17,7 @@ class DefectDetectorTestCase(TestCase):
         expected_prediction = np.array(data['target'])
 
         response = self.detector.compute_prediction(input_data)
-        self.assertEqual(response["status"], "OK")
+        self.assertEqual(response["status"], "success")
 
         predicted_labels = response["predicted"]
         accuracy = np.mean(predicted_labels == expected_prediction)
