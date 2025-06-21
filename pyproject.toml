@@ -1,0 +1,18 @@
+[project]
+name = "metal_flaw_detecta"
+version = "1.0.0"
+description = "Simple CNN project to detect defects in metal surfaces."
+requires-python = ">=3.9"
+license = "MIT"
+dependencies = [
+    "sklearn",
+    "keras",
+    "numpy",
+    "tensorflow",
+    "pandas",
+    "matplotlib"
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"

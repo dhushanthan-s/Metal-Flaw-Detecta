@@ -1,14 +1,18 @@
-from sklearn.datasets import load_files
-from sklearn.metrics import precision_score
-from keras import utils
+from .training import ModelTrainer
 from keras.preprocessing.image import array_to_img, img_to_array, load_img
 from tensorflow.keras.models import load_model
 import numpy as np
+import os
 
 class DefectDetector:
     def __init__(self):
         path_to_model = 'model/trained_models/'
-        self.model = load_model(path_to_model + "defect_detection.keras")
+        if os.path.exists(path_to_model + "defect_detection.keras"):
+            self.model = load_model(path_to_model + "defect_detection.keras")
+            self.model.load_weights(path_to_model + "defect_detection_weights.h5")
+        else:
+            print("No existing model found!!! Training a new model")
+            self.model = ModelTrainer().model
 
     def preprocessing(self, input_data):
         images_as_array = []

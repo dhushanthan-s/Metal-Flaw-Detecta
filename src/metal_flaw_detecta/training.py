@@ -1,15 +1,11 @@
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import numpy as np
-import shutil
-import os
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.callbacks import LearningRateScheduler
 from tensorflow.keras.models import load_model
 
-class DefectTrainer:
+class ModelTrainer:
     def __init__(self):
         self.path_to_training_data = 'data/processed/train'
         self.path_to_validation_data = 'data/processed/validation'
@@ -53,6 +49,10 @@ class DefectTrainer:
         )
         
         self.model = self.build_model()
+        self.train_model()
+
+        print(f"Path to new model: {self.path_to_best_model}")
+        print(f"Path to new model's weights: {self.path_to_best_model_weights}")
         
     def build_model(self):
         model = tf.keras.models.Sequential([
@@ -85,7 +85,6 @@ class DefectTrainer:
     def lr_schedule(self, epoch):
         return self.learning_rate * 0.9 ** epoch
 
-    # WARNING: This method will delete the existing model and its weights
     def train_model(self):
         self.history = self.model.fit(
             self.train_generator,
@@ -108,16 +107,18 @@ class DefectTrainer:
         self.model.save(self.path_to_best_model)
         self.model.save_weights(self.path_to_best_model_weights)
 
-    def update_existing_model(self):
-        try:
-            self.model = load_model(self.path_to_best_model)
-            self.model.load_weights(self.path_to_best_model_weights)
-            
-            self.train_model()
+def update_existing_model(path_to_model, path_to_weights):
+    try:
+        model = load_model(path_to_model)
+        model.load_weights(path_to_weights)
+        
+        # TODO: Add train method
+        self.train_model()
 
-            return {'status': 'success', 
-                    'accuracy': str(self.history.history['accuracy']), 
-                    'loss': str(self.history.history['loss'])}
+        return {'status': 'success', 
+                'accuracy': str(self.history.history['accuracy']), 
+                'loss': str(self.history.history['loss'])}
 
-        except Exception as e:
-            return {'status': 'error', 'msg': str(e)}
+    except Exception as e:
+        raise RuntimeError(e)
+
