@@ -9,7 +9,7 @@ class DefectDetector:
         path_to_model = 'model/trained_models/'
         if os.path.exists(path_to_model + "defect_detection.keras"):
             self.model = load_model(path_to_model + "defect_detection.keras")
-            self.model.load_weights(path_to_model + "defect_detection_weights.h5")
+            self.model.load_weights(path_to_model + "defect_detection.weights.h5")
         else:
             print("No existing model found!!! Training a new model")
             self.model = ModelTrainer().model

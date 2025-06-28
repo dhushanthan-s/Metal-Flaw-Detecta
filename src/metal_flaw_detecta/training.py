@@ -7,14 +7,13 @@ from tensorflow.keras.models import load_model
 
 class ModelTrainer:
     def __init__(self):
-        self.path_to_training_data = 'data/processed/train'
-        self.path_to_validation_data = 'data/processed/validation'
+        self.path_to_training_data = 'data/train'
+        self.path_to_validation_data = 'data/validation'
         self.path_to_model = 'model/trained_models/'
-        self.path_to_checkpoint = 'model/trained_models/checkpoint'
+        self.path_to_checkpoint = 'model/trained_models/checkpoint.weights.h5'
         self.path_to_best_model = 'model/trained_models/defect_detection.keras'
-        self.path_to_best_model_weights = 'model/trained_models/defect_detection_weights.h5'
+        self.path_to_best_model_weights = 'model/trained_models/defect_detection.weights.h5'
         self.path_to_tensorboard = 'model/trained_models/tensorboard'
-        self.path_to_checkpoint = 'model/trained_models/checkpoint'
         
         self.batch_size = 10
         self.epochs = 35

@@ -5,7 +5,7 @@ description = "Simple CNN project to detect defects in metal surfaces."
 requires-python = ">=3.9"
 license = "MIT"
 dependencies = [
-    "sklearn",
+    "scikit-learn",
     "keras",
     "numpy",
     "tensorflow",
