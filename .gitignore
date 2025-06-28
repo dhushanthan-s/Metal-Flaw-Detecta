@@ -2,16 +2,13 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.keras
+# *.keras
 dist/
 
 # IDE
 .vscode/
 .idea/
 .zed/
-
-# Datasets
-data/
 
 # venv
 .venv/
